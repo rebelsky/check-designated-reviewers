@@ -4,7 +4,7 @@ A script to see which designated reviewers for SIGCSE TS submissions have not ye
 
 ## Use case
 
-As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine which designated reviewers have actually signed up to review and which have not. Unfortunately, submitters do not follow instructions well, so the "Designated Reviewer" field can have a variety of forms of information (ORCIDs in various forms, email, names, the word "None", etc.; some put separate reviewers on separate lines, some use commas to separate them).
+_As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine which designated reviewers have actually signed up to review and which have not. Unfortunately, submitters do not follow instructions well, so the "Designated Reviewer" field can have a variety of forms of information (ORCIDs in various forms, email, names, the word "None", etc.; some put separate reviewers on separate lines, some use commas to separate them)._
 
 ## Instructions
 
@@ -29,9 +29,11 @@ As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine which
    `YYYYMMDD-HHMM`.
 
 7. Run the program
-      python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
+```
+python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
+```
 
-8. Peruse the output
+10. Peruse the output
    * PREFIX-matched.tsv contains the designated reviewers who matched
    * PREFIX-missing.tsv contains the designated reviewers who did not match
    * PREFIX-none.tsv contains the papers with no designated reviewer
