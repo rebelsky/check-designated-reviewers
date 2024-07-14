@@ -66,6 +66,10 @@ matched = open(sys.argv[3] + "-matched.tsv", "w")
 missing = open(sys.argv[3] + "-missing.tsv", "w")
 none = open(sys.argv[3] + "-none.tsv", "w")
 
+matched.write("#\tTitle\tName\tEmail\tORCid\n")
+missing.write("#\tTitle\tName\tEmail\tORCid\n")
+none.write("#\tTitle\n")
+
 # Prepare to process the submission info
 submissionsFile = open(sys.argv[1])
 submissions = csv.reader(submissionsFile, delimiter='\t')
@@ -83,10 +87,12 @@ for entry in submissions:
     designatedReviewers = entry[SUBMISSIONS_DR_COLUMN]
     for reviewer in designatedReviewers.split("\n"):
         foundMatch = False
+        name = "???"
+        orcid = "???"
+        email = "???"
         if reviewer.lower() == "none":
             none.write(number + "\t" + title + "\n")
         else:
-            info = number + "\t" + title + "\t" + reviewer + "\n"
             orcids = re.findall(ORCID_PATTERN, reviewer)
             for orcid in orcids:
                 if validORCID(orcid):
@@ -95,9 +101,12 @@ for entry in submissions:
             for email in emails:
                 if validEmail(email):
                     foundMatch = True
-            for name in reviewer.split(","):
-                if validName(name):
-                    foundMatch = True
+            if orcid == "???" and email == "???":
+                for name in reviewer.split(","):
+                    if validName(name):
+                        foundMatch = True
+                name = reviewer
+            info = f'{number}\t{title}\t{name}\t{email}\t{orcid}\n'
             if foundMatch:
                 matched.write(info)
             else:
