@@ -19,16 +19,17 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
    use `submissions-YYYYMMDD-HHMM.xlsx` 
 
 4. Convert the Excel file to a TSV file. On a Mac, I find it better
-   to use Numbers and "Export To TSV ..."
+   to use Numbers and "Export To TSV ...".  Excel's Export to TSV
+   seems to use a strange encoding that Python doesn't like.
 
-5. Make sure the column numbers in the settings section match those
+6. Make sure the column numbers in the settings section match those
    in the spreadsheets. (Unfortunately, these depend on too many
    factors to be sure.)
 
-6. Pick a prefix to use for the created files. For example
+7. Pick a prefix to use for the created files. For example
    `YYYYMMDD-HHMM`.
 
-7. Run the program
+8. Run the program
 ```
 python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
 ```
