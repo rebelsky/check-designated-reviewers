@@ -33,7 +33,7 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
 python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
 ```
 
-10. Peruse the output
+8. Peruse the output
    * PREFIX-matched.tsv contains the designated reviewers who matched
    * PREFIX-missing.tsv contains the designated reviewers who did not match
    * PREFIX-none.tsv contains the papers with no designated reviewer
