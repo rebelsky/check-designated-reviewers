@@ -66,8 +66,8 @@ matched = open(sys.argv[3] + "-matched.tsv", "w")
 missing = open(sys.argv[3] + "-missing.tsv", "w")
 none = open(sys.argv[3] + "-none.tsv", "w")
 
-matched.write("#\tTitle\tName\tEmail\tORCid\n")
-missing.write("#\tTitle\tName\tEmail\tORCid\n")
+matched.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
+missing.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
 none.write("#\tTitle\n")
 
 # Prepare to process the submission info
@@ -106,7 +106,7 @@ for entry in submissions:
                     if validName(name):
                         foundMatch = True
                 name = reviewer
-            info = f'{number}\t{title}\t{name}\t{email}\t{orcid}\n'
+            info = f'{number}\t{title}\t{name}\t{email}\t{orcid}\t\n'
             if foundMatch:
                 matched.write(info)
             else:
