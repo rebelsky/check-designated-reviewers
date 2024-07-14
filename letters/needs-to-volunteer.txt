@@ -1,0 +1,9 @@
+Dear NAME,
+
+You were listed as the designated reviewer for SIGCSE TS 2025 submission NUMBER, TITLE. However, you do not seem to have signed up to review. Please do so ASAP by visiting https://tinyurl.com/review-sigcse25 .
+
+If you have questions, please write to program@sigcse2025.sigcse.org.
+
+Thanks so much!
+
+-- SamR, for Libby Shoop, Samuel A. Rebelsky, and James Prather, the TS 2025 Program Chairs
