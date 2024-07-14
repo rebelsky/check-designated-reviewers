@@ -22,19 +22,15 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
    to use Numbers and "Export To TSV ...".  Excel's Export to TSV
    seems to use a strange encoding that Python doesn't like.
 
-6. Make sure the column numbers in the settings section match those
-   in the spreadsheets. (Unfortunately, these depend on too many
-   factors to be sure.)
-
-7. Pick a prefix to use for the created files. For example
+5. Pick a prefix to use for the created files. For example
    `YYYYMMDD-HHMM`.
 
-8. Run the program
+6. Run the program
 ```
 python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
 ```
 
-8. Peruse the output
+7. Peruse the output
    * PREFIX-matched.tsv contains the designated reviewers who matched
    * PREFIX-missing.tsv contains the designated reviewers who did not match
    * PREFIX-none.tsv contains the papers with no designated reviewer

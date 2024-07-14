@@ -23,12 +23,6 @@ import re
 # | Settings |
 # +----------+
 
-DR_NUMBER_COLUMN = 0
-DR_TITLE_COLUMN = 2
-DR_DR_COLUMN = 11
-
-VOL_ORCID_COLUMN = 4
-
 ORCID_PATTERN = "\d\d\d\d-\d\d\d\d-\d\d\d\d-\d\d\d[0-9Xx]"
 EMAIL_PATTERN = "[0-9A-Za-z._+-]*@[0-9A-Za-z._-]*\.[A-Za-z0-9]*"
 
@@ -51,24 +45,43 @@ def validName(name):
 # | Main |
 # +------+
 
+# Sanity check
 if (len(sys.argv) != 4):
     sys.exit("Invalid number of arguments; two required (designated reviewers file, volunteers file, file prefix)")
 
+# Grab all the info on volunteers
 volunteersFile = open(sys.argv[2])
 volunteers = volunteersFile.read().lower()
 volunteersFile.close()
 
+# Grab the indices of important volunteer columns
+volunteersFile = open(sys.argv[2])
+volunteersHeaders = volunteersFile.readline().split("\t")
+volunteersFile.close()
+VOLUNTEERS_EMAIL_COLUMN = volunteersHeaders.index("Email Address")
+VOLUNTEERS_ORCID_COLUMN = volunteersHeaders.index("ORCid")
+
+# Prepare output files
 matched = open(sys.argv[3] + "-matched.tsv", "w")
 missing = open(sys.argv[3] + "-missing.tsv", "w")
 none = open(sys.argv[3] + "-none.tsv", "w")
 
-drFile = open(sys.argv[1])
-designatedReviewers = csv.reader(drFile, delimiter='\t')
-for entry in designatedReviewers:
-    number = entry[DR_NUMBER_COLUMN]
-    title = entry[DR_TITLE_COLUMN]
-    dr = entry[DR_DR_COLUMN]
-    for reviewer in dr.split("\n"):
+# Prepare to process the submission info
+submissionsFile = open(sys.argv[1])
+submissions = csv.reader(submissionsFile, delimiter='\t')
+
+# Grab the indices of important submission columns
+submissionsHeaders = submissions.__next__()
+SUBMISSIONS_NUMBER_COLUMN = submissionsHeaders.index("#")
+SUBMISSIONS_TITLE_COLUMN = submissionsHeaders.index("Title")
+SUBMISSIONS_DR_COLUMN = submissionsHeaders.index("Designated Reviewer")
+
+# Process all the submissions
+for entry in submissions:
+    number = entry[SUBMISSIONS_NUMBER_COLUMN]
+    title = entry[SUBMISSIONS_TITLE_COLUMN]
+    designatedReviewers = entry[SUBMISSIONS_DR_COLUMN]
+    for reviewer in designatedReviewers.split("\n"):
         foundMatch = False
         if reviewer.lower() == "none":
             none.write(number + "\t" + title + "\n")
@@ -91,7 +104,7 @@ for entry in designatedReviewers:
                 missing.write(info)
 
 # Time to clean up
-drFile.close()
+submissionsFile.close()
 matched.close()
 missing.close()
 none.close()
