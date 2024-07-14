@@ -38,3 +38,10 @@ python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
    * PREFIX-missing.tsv contains the designated reviewers who did not match
    * PREFIX-none.tsv contains the papers with no designated reviewer
 
+## Followup activities
+
+1. Look through PREFIX-missing.tsv and re-check the results with the list of volunteers.
+
+2. For any missing volunteers, create letters. A sample letter can be found in the `letters` directory.
+
+
