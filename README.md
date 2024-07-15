@@ -8,37 +8,37 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
 
 ## Instructions
 
-1. Download the list of volunteers from the Google sheet as a TSV. 
-   I tend to use `volunteers-YYYYMMDD-HHMM.tsv`
+1. Download the list of volunteers from the Google survey results
+   as a TSV.  I tend to use `volunteers-YYYYMMDD-HHMM.tsv`
 
 2. Make sure that the submissions page on EasyChair includes the
    designated reviewer field. If not, click "click here to select
    which fields should be visible" and add the appropriate field.
 
-3. Download the list of submissions as an Excel file. I tend to 
-   use `submissions-YYYYMMDD-HHMM.xlsx` 
+3. Download the list of submissions from EasyChair as an Excel file. 
+   I tend to use `submissions-YYYYMMDD-HHMM.xlsx` 
 
 4. Convert the Excel file to a TSV file. On a Mac, I find it better
    to use Numbers and "Export To TSV ...".  Excel's Export to TSV
    seems to use a strange encoding that Python doesn't like.
 
-5. Pick a prefix to use for the created files. For example
+5. Pick a suffix to use for the created files. For example
    `YYYYMMDD-HHMM`.
 
 6. Run the program
 ```
-python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv PREFIX
+python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv SUFFIX
 ```
 
 7. Peruse the output
-   * PREFIX-matched.tsv contains the designated reviewers who matched
-   * PREFIX-missing.tsv contains the designated reviewers who did not match
-   * PREFIX-none.tsv contains the papers with no designated reviewer
+   * matched-SUFFIX.tsv contains the designated reviewers who matched
+   * missing-SUFFIX.tsv contains the designated reviewers who did not match
+   * none-SUFFIX.tsv contains the papers with no designated reviewer
 
 ## Followup activities
 
 1. Look through PREFIX-missing.tsv and re-check the results with the list of volunteers.
 
-2. For any missing volunteers, create letters. A sample letter can be found in the `letters` directory.
+2. For any missing volunteers, create and send letters. Sample letters can be found in the `letters` directory. (I'm working on a tool to help with creating the letters from the missing reviewers file).
 
 

@@ -47,7 +47,7 @@ def validName(name):
 
 # Sanity check
 if (len(sys.argv) != 4):
-    sys.exit("Invalid number of arguments; two required (designated reviewers file, volunteers file, file prefix)")
+    sys.exit(f"Invalid number of arguments; three required (designated reviewers file, volunteers file, file suffix). E.g.,\n  python3 {sys.argv[0]} submissions.tsv volunteers.tsv 20240717")
 
 # Grab all the info on volunteers
 volunteersFile = open(sys.argv[2])
@@ -62,9 +62,9 @@ VOLUNTEERS_EMAIL_COLUMN = volunteersHeaders.index("Email Address")
 VOLUNTEERS_ORCID_COLUMN = volunteersHeaders.index("ORCid")
 
 # Prepare output files
-matched = open(sys.argv[3] + "-matched.tsv", "w")
-missing = open(sys.argv[3] + "-missing.tsv", "w")
-none = open(sys.argv[3] + "-none.tsv", "w")
+matched = open(f"matched-{sys.argv[3]}.tsv", "w")
+missing = open(f"missed-{sys.argv[3]}.tsv", "w")
+none = open(f"none-sys.argv[3]}.tsv", "w")
 
 matched.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
 missing.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
