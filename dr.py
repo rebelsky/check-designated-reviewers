@@ -62,9 +62,10 @@ VOLUNTEERS_EMAIL_COLUMN = volunteersHeaders.index("Email Address")
 VOLUNTEERS_ORCID_COLUMN = volunteersHeaders.index("ORCid")
 
 # Prepare output files
-matched = open(f"matched-{sys.argv[3]}.tsv", "w")
-missing = open(f"missed-{sys.argv[3]}.tsv", "w")
-none = open(f"none-sys.argv[3]}.tsv", "w")
+SUFFIX = sys.argv[3]
+matched = open(f"matched{SUFFIX}.tsv", "w")
+missing = open(f"missing{SUFFIX}.tsv", "w")
+none = open(f"none{SUFFIX}.tsv", "w")
 
 matched.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
 missing.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
