@@ -6,39 +6,36 @@ A script to see which designated reviewers for SIGCSE TS submissions have not ye
 
 _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine which designated reviewers have actually signed up to review and which have not. Unfortunately, submitters do not follow instructions well, so the "Designated Reviewer" field can have a variety of forms of information (ORCIDs in various forms, email, names, the word "None", etc.; some put separate reviewers on separate lines, some use commas to separate them)._
 
-## Instructions
+## Standard workflow
 
-1. Download the list of volunteers from the Google survey results
-   as a TSV.  I tend to use `volunteers-YYYYMMDD-HHMM.tsv`
+1. Create `missing.tsv` using `dr.py`. This also creates `matched.tsv` and `none.tsv`
 
-2. Make sure that the submissions page on EasyChair includes the
-   designated reviewer field. If not, click "click here to select
-   which fields should be visible" and add the appropriate field.
+        python3 dr.py submissions.tsv volunteers.tsv ""
 
-3. Download the list of submissions from EasyChair as an Excel file. 
-   I tend to use `submissions-YYYYMMDD-HHMM.xlsx` 
+2. Populate some of the missing names and email addresses using `update-info.py`
 
-4. Convert the Excel file to a TSV file. On a Mac, I find it better
-   to use Numbers and "Export To TSV ...".  Excel's Export to TSV
-   seems to use a strange encoding that Python doesn't like.
+        python3 update-info.py missing.tsv authors.tsv > contacts.tsv
 
-5. Pick a suffix to use for the created files. For example
-   `YYYYMMDD-HHMM`.
+3. Read through `contacts.tsv` to exclude any that seem unnecessary or correct any missing information.
 
-6. Run the program
-```
-python3 dr.py SUBMISSIONS.tsv VOLUNTEERS.tsv SUFFIX
-```
+4. Generate an HTML file with mailto links using `make-letters.py`. (I decided that mailto links are the best compromise for pretending I have mail merge.)
 
-7. Peruse the output
-   * matched-SUFFIX.tsv contains the designated reviewers who matched
-   * missing-SUFFIX.tsv contains the designated reviewers who did not match
-   * none-SUFFIX.tsv contains the papers with no designated reviewer
+        python3 make-letters.py contacts.tsv letters/needs-to-volunteer.txt > mail-links.html
 
-## Followup activities
+5. Open the HTML file, click on each link, and send with your mail program.
 
-1. Look through PREFIX-missing.tsv and re-check the results with the list of volunteers.
+## Required data files
 
-2. For any missing volunteers, create and send letters. Sample letters can be found in the `letters` directory. (I'm working on a tool to help with creating the letters from the missing reviewers file).
+`volunteers.tsv`
+  : The downloaded Google survey results
 
+`submissions.tsv`
+  : The list of submissions, downloaded from EasyChair. 
+  : Make sure that this includes the designated reviewer field.  If not, click "click here to select which fields should be visible" and add the appropriate field.
+  : Note that you'll need to download an Excel file and convert to a tab-separated value file.
+  : On a Mac, I find it better to use Numbers and "Export To TSV ...".  Excel's Export to TSV seems to use a strange encoding that Python doesn't like.
+
+`authors.tsv`
+  : The list of authors, downloaded from EasyChair.
+  : You find these in Conference -> Conference data download. 
 
