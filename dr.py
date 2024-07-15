@@ -2,23 +2,6 @@ import sys
 import csv
 import re
 
-# +-----------+------------------------------------------------------
-# | Algorithm |
-# +-----------+
-
-#   For each entry in the submissions
-#     Grab the "Designated Reviewer" column
-#     Split into lines (I think)
-#     For each line
-#       If it contains an ORCID
-#         Check to see if it's in the list of reviewer applications
-#       If it contains an email address
-#         Check to see if it's in the list of reviewer applications
-#       If it contains "None" (or some variant)
-#         Tag it as a "None"
-#       If it contains text
-#         Look for the name
-
 # +----------+-------------------------------------------------------
 # | Settings |
 # +----------+
