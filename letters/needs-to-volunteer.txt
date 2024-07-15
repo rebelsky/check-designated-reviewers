@@ -1,8 +1,8 @@
 Dear NAME,
 
-You were listed as the designated reviewer for SIGCSE TS 2025 submission NUMBER, TITLE. However, you do not seem to have signed up to review. Please do so ASAP by visiting https://tinyurl.com/review-sigcse25 .
+You were listed as a designated reviewer for SIGCSE TS 2025 submission NUMBER, TITLE. However, you do not seem to have signed up to review. Please do so ASAP by visiting https://tinyurl.com/review-sigcse25 . If you are no longer able to review, please identify another author on your paper to serve as the designated reviewer and update the information in your submission on EasyChair.
 
-If you have questions, please write to program@sigcse2025.sigcse.org.
+If you have questions or concerns, please write to program@sigcse2025.sigcse.org.
 
 Thanks so much!
 
