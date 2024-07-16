@@ -10,7 +10,7 @@ import urllib.parse
 
 # Sanity check
 if (len(sys.argv) != 3):
-    sys.exit(f"Invalid number of arguments; three required (missing reviewers file, template file, target file). e.g.\n  python3 {sys.argv[0]} missing.tsv letters/needs-to-volunteer.txt letters.html")
+    sys.exit(f"Invalid number of arguments; two required (missing reviewers file, template file). e.g.\n  python3 {sys.argv[0]} missing.tsv letters/designated-reviewer.txt")
 
 # Grab the template
 templateFile = open(sys.argv[2])
