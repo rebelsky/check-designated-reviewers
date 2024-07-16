@@ -15,14 +15,33 @@ EMAIL_PATTERN = "[0-9A-Za-z._+-]*@[0-9A-Za-z._-]*\.[A-Za-z0-9]*"
 
 def validORCID(volunteers, orcid):
     return orcid.lower() in volunteers
-    # TO DO: Search the ORCID column, rather than use this technique
 
 def validEmail(volunteers, email):
     return email.lower() in volunteers
-    # TO DO: Search the Email column
 
 def validName(volunteers, name):
-    return name.replace(" ", "\t").lower() in volunteers
+    return name.lower() in volunteers
+
+def log(str):
+    print(str, file=sys.stderr)
+
+def lookupName(authors, number, email):
+    for author in authors:
+        authorInfo = author.split("\t")
+        if number == authorInfo[0]:
+            if email.lower() == authorInfo[3].lower():
+                return f"{authorInfo[1]} {authorInfo[2]}"
+    return "NAME"
+
+def lookupEmail(authors, number, name):
+    name = name.lower()
+    for author in authors:
+        authorInfo = author.split("\t")
+        if number == authorInfo[0]:
+            currentName = f"{authorInfo[1]} {authorInfo[2]}".lower()
+            if name == currentName:
+                return authorInfo[3]
+    return "EMAIL"
 
 # +------+-----------------------------------------------------------
 # | Main |
@@ -30,23 +49,21 @@ def validName(volunteers, name):
 
 def __main__():
     # Sanity check
-    if (len(sys.argv) != 4):
-        sys.exit(f"Invalid number of arguments; three required (designated reviewers file, volunteers file, file suffix). E.g.,\n  python3 {sys.argv[0]} submissions.tsv volunteers.tsv 20240717")
+    if (len(sys.argv) != 5):
+        sys.exit(f"Invalid number of arguments; four required (submissions file, volunteers file, authors file, suffix). E.g.,\n  python3 {sys.argv[0]} submissions.tsv volunteers.tsv authors.tsv monday")
     
     # Grab all the info on volunteers
     volunteersFile = open(sys.argv[2])
-    volunteers = volunteersFile.read().lower()
+    volunteers = volunteersFile.read().lower().replace("\t", " ")
     volunteersFile.close()
-    
-    # Grab the indices of important volunteer columns
-    volunteersFile = open(sys.argv[2])
-    volunteersHeaders = volunteersFile.readline().split("\t")
-    volunteersFile.close()
-    VOLUNTEERS_EMAIL_COLUMN = volunteersHeaders.index("Email Address")
-    VOLUNTEERS_ORCID_COLUMN = volunteersHeaders.index("ORCid")
-    
+   
+    # Authors
+    authorsFile = open(sys.argv[3])
+    authors = authorsFile.read().split("\n")
+    authorsFile.close()
+
     # Prepare output files
-    SUFFIX = sys.argv[3]
+    SUFFIX = sys.argv[4]
     matched = open(f"matched{SUFFIX}.tsv", "w")
     missing = open(f"missing{SUFFIX}.tsv", "w")
     none = open(f"none{SUFFIX}.tsv", "w")
@@ -72,9 +89,9 @@ def __main__():
         designatedReviewers = entry[SUBMISSIONS_DR_COLUMN]
         for reviewer in designatedReviewers.split("\n"):
             foundMatch = False
-            name = "???"
-            orcid = "???"
-            email = "???"
+            name = "NAME"
+            orcid = "ORCID"
+            email = "EMAIL"
             if reviewer.lower() == "none":
                 none.write(number + "\t" + title + "\n")
             else:
@@ -86,11 +103,17 @@ def __main__():
                 for email in emails:
                     if validEmail(volunteers, email):
                         foundMatch = True
-                if orcid == "???" and email == "???":
+                if orcid == "ORCID" and email == "EMAIL":
                     for name in reviewer.split(","):
                         if validName(volunteers, name):
                             foundMatch = True
                     name = reviewer
+                if name != "NAME" and email == "EMAIL":
+                    email = lookupEmail(authors, number, name)
+                    if email != "EMAIL" and validEmail(volunteers, email):
+                        foundMatch = True
+                if email != "EMAIL" and name == "NAME":
+                    name = lookupName(authors, number,email)
                 info = f'{number}\t{title}\t{name}\t{email}\t{orcid}\t\n'
                 if foundMatch:
                     matched.write(info)

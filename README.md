@@ -10,19 +10,15 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
 
 1. Create `missing.tsv` using `dr.py`. This also creates `matched.tsv` and `none.tsv`
 
-        python3 dr.py submissions.tsv volunteers.tsv ""
+        python3 dr.py submissions.tsv volunteers.tsv authors.tsv ""
 
-2. Populate some of the missing names and email addresses using `update-info.py`
+2. Read through `missing.tsv` to exclude any that seem unnecessary or correct any missing information.
 
-        python3 update-info.py missing.tsv authors.tsv > contacts.tsv
+3. Generate an HTML file with mailto links using `make-letters.py`. (I decided that mailto links are the best compromise for pretending I have mail merge.)
 
-3. Read through `contacts.tsv` to exclude any that seem unnecessary or correct any missing information.
+        python3 make-letters.py missing.tsv letters/needs-to-volunteer.txt > mail-links.html
 
-4. Generate an HTML file with mailto links using `make-letters.py`. (I decided that mailto links are the best compromise for pretending I have mail merge.)
-
-        python3 make-letters.py contacts.tsv letters/needs-to-volunteer.txt > mail-links.html
-
-5. Open the HTML file, click on each link, and send with your mail program.
+4. Open the HTML file, click on each link, and send with your mail program.
 
 ## Required data files
 
@@ -39,3 +35,7 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
   : The list of authors, downloaded from EasyChair.
   : You find these in Conference -> Conference data download. 
 
+## Forthcoming
+
+* A technique for identifying authors of three or more submissions who have not volunteered to review.
+* Identify accepted authors from last year who are on NONE papers this year.
