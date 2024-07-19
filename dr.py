@@ -70,7 +70,7 @@ def __main__():
     
     matched.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
     missing.write("#\tTitle\tName\tEmail\tORCid\tNotes\n")
-    none.write("#\tTitle\n")
+    none.write("#\tAuthors\tTitle\tNotes\n")
     
     # Prepare to process the submission info
     submissionsFile = open(sys.argv[1])
@@ -79,12 +79,14 @@ def __main__():
     # Grab the indices of important submission columns
     submissionsHeaders = submissions.__next__()
     SUBMISSIONS_NUMBER_COLUMN = submissionsHeaders.index("#")
+    SUBMISSIONS_AUTHORS_COLUMN = submissionsHeaders.index("Authors")
     SUBMISSIONS_TITLE_COLUMN = submissionsHeaders.index("Title")
     SUBMISSIONS_DR_COLUMN = submissionsHeaders.index("Designated Reviewer")
     
     # Process all the submissions
     for entry in submissions:
         number = entry[SUBMISSIONS_NUMBER_COLUMN]
+        authors = entry[SUBMISSIONS_AUTHORS_COLUMN]
         title = entry[SUBMISSIONS_TITLE_COLUMN]
         designatedReviewers = entry[SUBMISSIONS_DR_COLUMN]
         for reviewer in designatedReviewers.split("\n"):
@@ -93,7 +95,7 @@ def __main__():
             orcid = "ORCID"
             email = "EMAIL"
             if reviewer.lower() == "none":
-                none.write(number + "\t" + title + "\n")
+                none.write(f"{number}\t{authors}\t{title}\t\n")
             else:
                 orcids = re.findall(ORCID_PATTERN, reviewer)
                 for orcid in orcids:
