@@ -1,10 +1,10 @@
 Dear NAME,
 
-I note that you are listed as co-author on three or more submissions for SIGCSE TS 2025, none of which have designated a reviewer. We expect that anyone who is co-author on three or more submissions will offset the reviewing burden their submissions create by volunteering to review at least a few papers.
+I note that you are listed as co-author on NUMBER submissions for SIGCSE TS 2025 (submissions TITLE). Because of the large number of submissions for SIGCSE TS, we expect that anyone who is co-author on three or more submissions to volunteer will review at least a few papers to help offset the reviewing burden their submissions create.
 
 Please sign up to review for SIGCSE TS 2025 asap by visiting https://tinyurl.com/review-sigcse25 .
 
-If you have questions, please write to program@sigcse2025.sigcse.org.
+If you have questions or concerns, please write to program@sigcse2025.sigcse.org.
 
 Thanks so much!
 
