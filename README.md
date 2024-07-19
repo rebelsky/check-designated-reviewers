@@ -39,3 +39,4 @@ _As a Program Chair of ACM SIGCSE TS, I want to be able to easily determine whic
 
 * A technique for identifying authors of three or more submissions who have not volunteered to review.
 * Identify accepted authors from last year who are on NONE papers this year.
+* Handle UNCC, where people alternate between @uncc.edu and @charlotte.edu.
